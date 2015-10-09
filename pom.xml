@@ -4,8 +4,12 @@
 	<groupId>net.markenwerk</groupId>
 	<artifactId>utils-mail-smime</artifactId>
 	<version>1.0.0</version>
+	<packaging>jar</packaging>
 
+	<name>${project.groupId}:${project.artifactId}</name>
 	<description>A S/MIME library for JavaMail</description>
+	<url>https://github.com/markenwerk/java-utils-mail-smime</url>
+
 	<licenses>
 		<license>
 			<name>GNU Lesser General Public License (LGPL), Version 3.0</name>
@@ -17,6 +21,21 @@
 		<name>Markenwerk – Gesellschaft für markenbildende Maßnahmen mbH</name>
 		<url>http://markenwerk.net/</url>
 	</organization>
+
+	<developers>
+		<developer>
+			<name>Torsten Krause</name>
+			<email>tk@markenwerk.net</email>
+			<organization>Markenwerk – Gesellschaft für markenbildende Maßnahmen mbH</organization>
+			<organizationUrl>http://markenwerk.net/</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git@github.com:markenwerk/java-utils-mail-smime.git</connection>
+		<developerConnection>scm:git:git@github.com:markenwerk/java-utils-mail-smime.git</developerConnection>
+		<url>https://github.com/markenwerk/java-utils-mail-smime</url>
+	</scm>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -37,5 +56,39 @@
 			<version>1.4.7</version>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>install</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.3</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<phase>install</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
