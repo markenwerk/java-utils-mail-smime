@@ -26,7 +26,7 @@ An application that wants to sign or decrypt a S/MIME message has to provide a s
 
 Some CAs provide S/MIME certificates free of charge (i.E. [COMODO](https://secure.comodo.com/products/frontpage?area=SecureEmailCertificate)). In most cases, a private key is created by the browser that is used to apply for the certificate, i.e. by using the [keygen](http://www.w3schools.com/tags/tag_keygen.asp) tag, and after validation, i.e. opening a confirmation link send via email, the corresponding certificate is installed into the browsers certificate store. The private key and the certificate, including the certificate chain, can then be exported as a PKCS12 keystore. The alias given to the private key inside the keystore is usually neither guessable nor very sensible, but you can use the [keytool](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/keytool.html) to find it out.
 
-```
+```shell
 keytool -list -storetype pkcs12 -keystore smime.p12
 ```
 	
@@ -44,13 +44,13 @@ Certificate fingerprint (SHA1): F1:A9:99:CC:35:CA:3E:C7:D3:01:EC:95:14:D7:C0:32:
  
 where `'s comodo ca limited id` is the given alias. It can be changed like this:
 
-```
+```shell
 keytool -changealias -alias "'s comodo ca limited id" -destalias "alias" -storetype pkcs12 -keystore smime.p12
 ```
 
 The public certificate can be exported into a PEM encoded file like this:
 
-```
+```shell
 keytool -export -alias "alias" -storetype pkcs12 -keystore smime.p12 -rfc -file certificate.pem
 ```
 	
@@ -58,7 +58,7 @@ keytool -export -alias "alias" -storetype pkcs12 -keystore smime.p12 -rfc -file 
 
 First things first: The [`BouncyCastleProvider`](http://www.bouncycastle.org/docs/docs1.5on/org/bouncycastle/jce/provider/BouncyCastleProvider.html) has to be added as a JCE provider somewhere in your application before this library can be used:
 
-```
+```java
 Security.addProvider(new BouncyCastleProvider());
 ```
 	
@@ -70,7 +70,7 @@ Depending on what you want to do with this library you must import the private k
 
 While [`SmimeKey`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeKey.html) has a public constructor it is recommended to use a [`SmimeKeyStore`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeKeyStore.html), which is a thin wrapper around a PKCS12 keystore and can be created and used like this:
 
-```
+```java
 SmimeKeyStore smimeKeyStore = new SmimeKeyStore(pkcs12Stream, storePass);
 SmimeKey smimeKey = smimeKeyStore.getPrivateKey("alias", keyPass);
 ```
@@ -83,7 +83,7 @@ To obtain a [`SmimeKey`](http://markenwerk.github.io/java-utils-mail-smime/javad
 
 There are many ways to import a [`X509certificate`](http://docs.oracle.com/javase/7/docs/api/java/security/cert/X509Certificate.html). One possibility is the following where you have to provide an [`InputStream`](http://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html) that yields the PEM encoded certificate:
 
-```
+```java
 CertificateFactory factory = CertificateFactory.getInstance("X.509", "BC");
 X509Certificate certificate = (X509Certificate) factory.generateCertificate(pemStream);
 ```
@@ -100,7 +100,7 @@ So far, we haven't encountered any problems with the following usages:
  
 We will assume that you already know how to create a SMTP [`Session`](https://javamail.java.net/nonav/docs/api/javax/mail/Session.html) and how create and send a MIME Message with JavaMail, but here is a minimal example how one could send a simple message:
 
-```
+```java
 public void sendMail(Session session, String from, String to, String subject, String content) throws Exception {
 	MimeMessage message = new MimeMessage(session);
 	message.setFrom(new InternetAddress(from));
@@ -116,7 +116,7 @@ public void sendMail(Session session, String from, String to, String subject, St
 
 Just use the [`SmimeUtil`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeUtil.html) with the [`MimeMessage`](https://javamail.java.net/nonav/docs/api/javax/mail/internet/MimeMessage.html) to be signed and the [`SmimeKey`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeKey.html) to sign it with:
 
-```
+```java
 private MimeMessage signMessage(Session session, MimeMessage message, String from) throws Exception {
 	SmimeKey smimeKey = getSmimeKeyForSender(from);
 	return SmimeUtil.sign(session, message, smimeKey);
@@ -127,7 +127,7 @@ private MimeMessage signMessage(Session session, MimeMessage message, String fro
 
 Just use the [`SmimeUtil`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeUtil.html) with the [`MimeMessage`](https://javamail.java.net/nonav/docs/api/javax/mail/internet/MimeMessage.html) to be encrypted and the [`X509certificate`](http://docs.oracle.com/javase/7/docs/api/java/security/cert/X509Certificate.html) to encrypt it with:
 
-```
+```java
 private MimeMessage encryptMessage(Session session, MimeMessage message, String to) throws Exception {
 	X509Certificate certificate = getCertificateForRecipient(to);
 	return SmimeUtil.encrypt(session, message, certificate);
@@ -138,7 +138,7 @@ private MimeMessage encryptMessage(Session session, MimeMessage message, String 
 
 We will assume that you already know how to create a POP or IMAP [`Session`](https://javamail.java.net/nonav/docs/api/javax/mail/Session.html) and how receive a MIME Message with JavaMail, but here is a minimal example how one could read messages:
 
-```
+```java
 Store store = session.getStore();
 store.connect(host, port, user, password);
 Folder inbox = store.getFolder("Inbox");
@@ -151,19 +151,19 @@ for (int i = 1, n = inbox.getMessageCount(); i <= n; i++) {
 	
 You can then use the [`SmimeUtil`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeUtil.html) check the messages content type and find out if it has a [`SmimeState`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeState.html) of `ENCRYPTED`, `SIGNED` or `NEITHER` like this:
 
-```
+```java
 SmimeState smimeState = SmimeUtil.getStatus(mimePart);
 ```
 	
 If the messages S/MIME state is `ENCRYPTED`, you can use the [`SmimeUtil`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeUtil.html) with the encrypted [`MimeMessage`](https://javamail.java.net/nonav/docs/api/javax/mail/internet/MimeMessage.html) and the [`SmimeKey`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeKey.html) to decrypt like this:
 
-```
+```java
 MimeMessage decryptedMessage = SmimeUtil.decrypt(session, mimeMessage, getSmimeKey());
 ```
 	
 If the messages S/MIME state is `SIGNED` (the contains a MIME multipart with exactly two body parts: the signed content and the signature), you can use the [`SmimeUtil`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeUtil.html) to check whether the signature is valid for the signed content and retrieve the signed content like this:
 
-```
+```java
 boolean validSignature = SmimeUtil.checkSignature(mimePart)
 MimeBodyPart signedContent = SmimeUtil.getSignedContent(mimePart);
 ```
