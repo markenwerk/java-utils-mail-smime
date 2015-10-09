@@ -1,4 +1,4 @@
-# A S/MIME library for Java Mail
+# A S/MIME library for JavaMail
 
 This is a simple to use library to use [S/MIME](https://en.wikipedia.org/wiki/S/MIME) features in conjunction with [JavaMail](http://www.oracle.com/technetwork/java/javamail/index.html).
 
