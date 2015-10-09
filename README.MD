@@ -54,16 +54,16 @@ First things first: Bouncy Castle has to be added as a JCE provider somewhere in
 	
 ### Importing the S/MIME certificate ...
 
-Depending on what you want to do with this library you must import the private key and certificate chain as a `SmimeKey` or import the public certificate as a `X509certificate`. 
+Depending on what you want to do with this library you must import the private key and certificate chain as a [`SmimeKey`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeKey.html) or import the public certificate as a [`X509certificate`](http://docs.oracle.com/javase/7/docs/api/java/security/cert/X509Certificate.html). 
 
 #### ... to sing or decrypt a message
 
-While `SmimeKey` has a public constructor it is recommended to use a `SmimeKeyStore`, which is a thin wrapper around a PKCS12 keystore and can be created and used like this:
+While `SmimeKey` has a public constructor it is recommended to use a [`SmimeKeyStore`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeKeyStore.html), which is a thin wrapper around a PKCS12 keystore and can be created and used like this:
 
 	SmimeKeyStore smimeKeyStore = new SmimeKeyStore(pkcs12Stream, storePass);
 	SmimeKey smimeKey = smimeKeyStore.getPrivateKey("alias", keyPass);
 
-To create a `SmimeKeyStore` you have to provide an `InputStream` that yields the PKCS12 keystore (most likely a `FileInputStream`) and the store password as a `char[]`. By default, the `char[]` will be overwritten after is has been used. This behaviour can be turned off with the optional third parameter.
+To create a `SmimeKeyStore` you have to provide an [`InputStream`](http://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html) that yields the PKCS12 keystore (most likely a [`FileInputStream`](http://docs.oracle.com/javase/7/docs/api/java/io/FileInputStream.html)) and the store password as a `char[]`. By default, the `char[]` will be overwritten after is has been used. This behaviour can be turned off with the optional third parameter.
 
 To obtain a `SmimeKey` from the `SmimeKeyStore` you have to provide the alias of the private key entry and the password to decrypt the private key. Again, as a `char[]` that will be overwritten by default.
 
@@ -84,7 +84,7 @@ So far, we haven't encountered any problems with the following usages:
  - Encrypting only
  - Fist signing, than encrypting
  
- We will assume that you already know how to create a SMTP `Session` and how create and send a MIME Message with JavaMail, but here is a minimal example how one could send a simple message:
+ We will assume that you already know how to create a SMTP [`Session`](https://javamail.java.net/nonav/docs/api/javax/mail/Session.html) and how create and send a MIME Message with JavaMail, but here is a minimal example how one could send a simple message:
 
 	public void sendMail(Session session, String from, String to, String subject, String content) throws Exception {
 		MimeMessage message = new MimeMessage(session);
@@ -98,7 +98,7 @@ So far, we haven't encountered any problems with the following usages:
 
 #### .. to sign a message
 
-Just use the `SmimeUtil` with the `MimeMessage` to be signed and the `SmimeKey` to sign it with:
+Just use the [`SmimeUtil`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeUtil.html) with the [`MimeMessage`](https://javamail.java.net/nonav/docs/api/javax/mail/internet/MimeMessage.html) to be signed and the `SmimeKey` to sign it with:
 		
 	private MimeMessage signMessage(Session session, MimeMessage message, String from) throws Exception {	
 		SmimeKey smimeKey = getSmimeKeyForSender(from);
@@ -128,7 +128,7 @@ We will assume that you already know how to create a POP or IMAP `Session` and h
 		MimeMessage mimeMessage = (MimeMessage) inbox.getMessage(i);
 	}
 	
-You can then use the `SmimeUtil` check the messages content type ant find out if it is  `ENCRYPTED` or `SIGNED` or in `NEITHER` of theses states
+You can then use the `SmimeUtil` check the messages content type and find out if it has a [`SmimeState`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeState.html) of `ENCRYPTED`, `SIGNED` or `NEITHER` like this:
 
 	SmimeState smimeState = SmimeUtil.getStatus(mimePart);
 	
