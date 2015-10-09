@@ -98,7 +98,7 @@ So far, we haven't encountered any problems with the following usages:
  - Encrypting only
  - Fist signing, than encrypting
  
- We will assume that you already know how to create a SMTP [`Session`](https://javamail.java.net/nonav/docs/api/javax/mail/Session.html) and how create and send a MIME Message with JavaMail, but here is a minimal example how one could send a simple message:
+We will assume that you already know how to create a SMTP [`Session`](https://javamail.java.net/nonav/docs/api/javax/mail/Session.html) and how create and send a MIME Message with JavaMail, but here is a minimal example how one could send a simple message:
 
 ```
 public void sendMail(Session session, String from, String to, String subject, String content) throws Exception {
