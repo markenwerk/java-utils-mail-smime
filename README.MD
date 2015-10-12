@@ -78,7 +78,7 @@ keytool -export -alias "alias" -storetype pkcs12 -keystore smime.p12 -rfc -file 
 	
 ## Usage
 
-First things first: The [`BouncyCastleProvider`](http://www.bouncycastle.org/docs/docs1.5onindex.html?org/bouncycastle/jce/provider/BouncyCastleProvider.html) has to be added as a JCE provider somewhere in your application before this library can be used:
+First things first: The [`BouncyCastleProvider`](http://www.bouncycastle.org/docs/docs1.5on/index.html?org/bouncycastle/jce/provider/BouncyCastleProvider.html) has to be added as a JCE provider somewhere in your application before this library can be used:
 
 ```java
 Security.addProvider(new BouncyCastleProvider());
