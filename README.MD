@@ -2,6 +2,28 @@
 
 This is a simple to use library to use [S/MIME](https://en.wikipedia.org/wiki/S/MIME) features in conjunction with [JavaMail](http://www.oracle.com/technetwork/java/javamail/index.html).
 
+## Overview
+
+This library allows you to
+
+ - sign MIME Messages according to the S/MIME standard,
+ - encrypt MIME Messages according to the S/MIME standard,
+ - check, whether a MIME Message is encrypted or signed according to the S/MIME standard,
+ - check, whether the signature of a MIME message that is signed according to the S/MIME standard is valid or
+ - decrypt a MIME message that is encrypted according to the S/MIME standard.
+
+This library is hosted in the [Maven Central Repositoy](http://search.maven.org/#artifactdetails|net.markenwerk|utils-mail-smime|1.0.0|jar). You can use it with the following coordinates:
+
+```xml
+<dependency>
+	<groupId>net.markenwerk</groupId>
+	<artifactId>utils-mail-smime</artifactId>
+	<version>1.0.0</version>
+</dependency>
+```
+
+Consult the [usage description](#usage) and [Javadoc](http://markenwerk.github.io/java-utils-mail-smime/javadoc/) for further information.
+
 ## Origin and state
 
 The initial version of this library is based on the S/MIME specific parts of a project called [JavaMail-Crypto API](http://javamail-crypto.sourceforge.net/) which relies on the Java version of [The Legion of the Bouncy Castle](http://www.bouncycastle.org/java.html) as a provider of all sorts of cryptography witchcraft.  
