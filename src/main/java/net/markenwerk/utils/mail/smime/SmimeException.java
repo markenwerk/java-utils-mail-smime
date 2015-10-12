@@ -1,6 +1,11 @@
 /*
- * A S/MIME library for JavaMail
- * (groupID: net.markenwerk, artifactId: utils-mail-smime)
+ * Copyright (C) 2015 Torsten Krause.
+ * 
+ * This file is part of 'A S/MIME library for JavaMail', hereafter
+ * called 'this library', identified by the following coordinates:
+ * 
+ *    groupID: net.markenwerk
+ *    artifactId: utils-mail-smime
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
