@@ -22,7 +22,7 @@ This library is hosted in the [Maven Central Repositoy](http://search.maven.org/
 </dependency>
 ```
 
-Consult the [usage description](#usage) and [Javadoc](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.0/) for further information.
+Consult the [usage description](#usage) and [Javadoc](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.0/index.html) for further information.
 
 ## Origin and state
 
@@ -41,10 +41,10 @@ This library has roughly the same range of functionality regarding S/MIME as the
 
 ## Necessary S/MIME certificate
 
-An application that wants to encrypt a S/MIME message has to provide a S/MIME certificate in form of a standard [`X509Certificate`](http://docs.oracle.com/javase/7/docs/api/java/security/cert/X509Certificate.html).
+An application that wants to encrypt a S/MIME message has to provide a S/MIME certificate in form of a standard [`X509Certificate`](http://docs.oracle.com/javase/7/docs/api/index.html?java/security/cert/X509Certificate.html).
 This library imposes no obstacles on how the certificate object is obtained.
 
-An application that wants to sign or decrypt a S/MIME message has to provide a standard [`PrivateKey`](http://docs.oracle.com/javase/7/docs/api/java/security/PrivateKey.html) and the [`X509Certificate`](http://docs.oracle.com/javase/7/docs/api/java/security/cert/X509Certificate.html) chain for the S/MIME certificate, but the preferred way is to provide these as a PKCS12 keystore.
+An application that wants to sign or decrypt a S/MIME message has to provide a standard [`PrivateKey`](http://docs.oracle.com/javase/7/docs/api/index.html?java/security/PrivateKey.html) and the [`X509Certificate`](http://docs.oracle.com/javase/7/docs/api/index.html?java/security/cert/X509Certificate.html) chain for the S/MIME certificate, but the preferred way is to provide these as a PKCS12 keystore.
 
 Some CAs provide S/MIME certificates free of charge (i.E. [COMODO](https://secure.comodo.com/products/frontpage?area=SecureEmailCertificate)). In most cases, a private key is created by the browser that is used to apply for the certificate, i.e. by using the [keygen](http://www.w3schools.com/tags/tag_keygen.asp) tag, and after validation, i.e. opening a confirmation link send via email, the corresponding certificate is installed into the browsers certificate store. The private key and the certificate, including the certificate chain, can then be exported as a PKCS12 keystore. The alias given to the private key inside the keystore is usually neither guessable nor very sensible, but you can use the [keytool](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/keytool.html) to find it out.
 
@@ -78,7 +78,7 @@ keytool -export -alias "alias" -storetype pkcs12 -keystore smime.p12 -rfc -file 
 	
 ## Usage
 
-First things first: The [`BouncyCastleProvider`](http://www.bouncycastle.org/docs/docs1.5on/org/bouncycastle/jce/provider/BouncyCastleProvider.html) has to be added as a JCE provider somewhere in your application before this library can be used:
+First things first: The [`BouncyCastleProvider`](http://www.bouncycastle.org/docs/docs1.5onindex.html?org/bouncycastle/jce/provider/BouncyCastleProvider.html) has to be added as a JCE provider somewhere in your application before this library can be used:
 
 ```java
 Security.addProvider(new BouncyCastleProvider());
@@ -86,24 +86,24 @@ Security.addProvider(new BouncyCastleProvider());
 	
 ### Importing the S/MIME certificate ...
 
-Depending on what you want to do with this library you must import the private key and certificate chain as a [`SmimeKey`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeKey.html) or import the public certificate as a [`X509certificate`](http://docs.oracle.com/javase/7/docs/api/java/security/cert/X509Certificate.html). 
+Depending on what you want to do with this library you must import the private key and certificate chain as a [`SmimeKey`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.0/index.html?net/markenwerk/utils/mail/smime/SmimeKey.html) or import the public certificate as a [`X509certificate`](http://docs.oracle.com/javase/7/docs/api/index.html?java/security/cert/X509Certificate.html). 
 
 #### ... to sing or decrypt a message
 
-While [`SmimeKey`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeKey.html) has a public constructor it is recommended to use a [`SmimeKeyStore`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeKeyStore.html), which is a thin wrapper around a PKCS12 keystore and can be created and used like this:
+While [`SmimeKey`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.0/index.html?net/markenwerk/utils/mail/smime/SmimeKey.html) has a public constructor it is recommended to use a [`SmimeKeyStore`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.0/index.html?net/markenwerk/utils/mail/smime/SmimeKeyStore.html), which is a thin wrapper around a PKCS12 keystore and can be created and used like this:
 
 ```java
 SmimeKeyStore smimeKeyStore = new SmimeKeyStore(pkcs12Stream, storePass);
 SmimeKey smimeKey = smimeKeyStore.getPrivateKey("alias", keyPass);
 ```
 
-To create a [`SmimeKeyStore`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeKeyStore.html) you have to provide an [`InputStream`](http://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html) that yields the PKCS12 keystore (most likely a [`FileInputStream`](http://docs.oracle.com/javase/7/docs/api/java/io/FileInputStream.html)) and the store password as a `char[]`. By default, the `char[]` will be overwritten after is has been used. This behaviour can be turned off with the optional third parameter.
+To create a [`SmimeKeyStore`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.0/index.html?net/markenwerk/utils/mail/smime/SmimeKeyStore.html) you have to provide an [`InputStream`](http://docs.oracle.com/javase/7/docs/api/index.html?java/io/InputStream.html) that yields the PKCS12 keystore (most likely a [`FileInputStream`](http://docs.oracle.com/javase/7/docs/api/index.html?java/io/FileInputStream.html)) and the store password as a `char[]`. By default, the `char[]` will be overwritten after is has been used. This behaviour can be turned off with the optional third parameter.
 
-To obtain a [`SmimeKey`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeKey.html) from the [`SmimeKeyStore`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeKeyStore.html) you have to provide the alias of the private key entry and the password to decrypt the private key. Again, as a `char[]` that will be overwritten by default.
+To obtain a [`SmimeKey`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.0/index.html?net/markenwerk/utils/mail/smime/SmimeKey.html) from the [`SmimeKeyStore`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.0/index.html?net/markenwerk/utils/mail/smime/SmimeKeyStore.html) you have to provide the alias of the private key entry and the password to decrypt the private key. Again, as a `char[]` that will be overwritten by default.
 
 #### ... to encrypt a message
 
-There are many ways to import a [`X509certificate`](http://docs.oracle.com/javase/7/docs/api/java/security/cert/X509Certificate.html). One possibility is the following where you have to provide an [`InputStream`](http://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html) that yields the PEM encoded certificate:
+There are many ways to import a [`X509certificate`](http://docs.oracle.com/javase/7/docs/api/index.html?java/security/cert/X509Certificate.html). One possibility is the following where you have to provide an [`InputStream`](http://docs.oracle.com/javase/7/docs/api/index.html?java/io/InputStream.html) that yields the PEM encoded certificate:
 
 ```java
 CertificateFactory factory = CertificateFactory.getInstance("X.509", "BC");
@@ -136,7 +136,7 @@ public void sendMail(Session session, String from, String to, String subject, St
 
 #### .. to sign a message
 
-Just use the [`SmimeUtil`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeUtil.html) with the [`MimeMessage`](https://javamail.java.net/nonav/docs/api/javax/mail/internet/MimeMessage.html) to be signed and the [`SmimeKey`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeKey.html) to sign it with:
+Just use the [`SmimeUtil`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.0/index.html?net/markenwerk/utils/mail/smime/SmimeUtil.html) with the [`MimeMessage`](https://javamail.java.net/nonav/docs/api/javax/mail/internet/MimeMessage.html) to be signed and the [`SmimeKey`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.0/index.html?net/markenwerk/utils/mail/smime/SmimeKey.html) to sign it with:
 
 ```java
 private MimeMessage signMessage(Session session, MimeMessage message, String from) throws Exception {
@@ -147,7 +147,7 @@ private MimeMessage signMessage(Session session, MimeMessage message, String fro
 
 #### .. to encrypt a message
 
-Just use the [`SmimeUtil`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeUtil.html) with the [`MimeMessage`](https://javamail.java.net/nonav/docs/api/javax/mail/internet/MimeMessage.html) to be encrypted and the [`X509certificate`](http://docs.oracle.com/javase/7/docs/api/java/security/cert/X509Certificate.html) to encrypt it with:
+Just use the [`SmimeUtil`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.0/index.html?net/markenwerk/utils/mail/smime/SmimeUtil.html) with the [`MimeMessage`](https://javamail.java.net/nonav/docs/api/javax/mail/internet/MimeMessage.html) to be encrypted and the [`X509certificate`](http://docs.oracle.com/javase/7/docs/api/index.html?java/security/cert/X509Certificate.html) to encrypt it with:
 
 ```java
 private MimeMessage encryptMessage(Session session, MimeMessage message, String to) throws Exception {
@@ -171,19 +171,19 @@ for (int i = 1, n = inbox.getMessageCount(); i <= n; i++) {
 }
 ```
 	
-You can then use the [`SmimeUtil`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeUtil.html) check the messages content type and find out if it has a [`SmimeState`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeState.html) of `ENCRYPTED`, `SIGNED` or `NEITHER` like this:
+You can then use the [`SmimeUtil`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.0/index.html?net/markenwerk/utils/mail/smime/SmimeUtil.html) check the messages content type and find out if it has a [`SmimeState`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.0/index.html?net/markenwerk/utils/mail/smime/SmimeState.html) of `ENCRYPTED`, `SIGNED` or `NEITHER` like this:
 
 ```java
 SmimeState smimeState = SmimeUtil.getStatus(mimePart);
 ```
 	
-If the messages S/MIME state is `ENCRYPTED`, you can use the [`SmimeUtil`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeUtil.html) with the encrypted [`MimeMessage`](https://javamail.java.net/nonav/docs/api/javax/mail/internet/MimeMessage.html) and the [`SmimeKey`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeKey.html) to decrypt like this:
+If the messages S/MIME state is `ENCRYPTED`, you can use the [`SmimeUtil`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.0/index.html?net/markenwerk/utils/mail/smime/SmimeUtil.html) with the encrypted [`MimeMessage`](https://javamail.java.net/nonav/docs/api/javax/mail/internet/MimeMessage.html) and the [`SmimeKey`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.0/index.html?net/markenwerk/utils/mail/smime/SmimeKey.html) to decrypt like this:
 
 ```java
 MimeMessage decryptedMessage = SmimeUtil.decrypt(session, mimeMessage, getSmimeKey());
 ```
 	
-If the messages S/MIME state is `SIGNED` (the contains a MIME multipart with exactly two body parts: the signed content and the signature), you can use the [`SmimeUtil`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/net/markenwerk/utils/mail/smime/SmimeUtil.html) to check whether the signature is valid for the signed content and retrieve the signed content like this:
+If the messages S/MIME state is `SIGNED` (the contains a MIME multipart with exactly two body parts: the signed content and the signature), you can use the [`SmimeUtil`](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.0/index.html?net/markenwerk/utils/mail/smime/SmimeUtil.html) to check whether the signature is valid for the signed content and retrieve the signed content like this:
 
 ```java
 boolean validSignature = SmimeUtil.checkSignature(mimePart)
