@@ -1,5 +1,8 @@
-A S/MIME library for JavaMail
-(groupID: net.markenwerk, artifactId: utils-mail-smime)
+This file is part of 'A S/MIME library for JavaMail', hereafter
+called 'this library', identified by the following coordinates:
+
+   groupID: net.markenwerk
+   artifactId: utils-mail-smime
 
 The initial version of this library is based on the S/MIME specific parts of a
 project called 'JavaMail-Crypto API' (http://javamail-crypto.sourceforge.net/).
