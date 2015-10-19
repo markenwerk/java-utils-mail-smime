@@ -41,7 +41,7 @@ None of the major mail clients that actually have S/MIME support (Thunderbird, M
 
 This library has roughly the same range of functionality regarding S/MIME as the original library. This may not be every aspect of the current [RFC](https://tools.ietf.org/html/rfc5751), but we're trying to improve this library when necessary. A further goal of this library is to provide an API that is as simple as possible to use.
 
-## Necessary S/MIME certificate
+## Setup
 
 An application that wants to encrypt a S/MIME message has to provide a S/MIME certificate in form of a standard [`X509Certificate`][X509Certificate].
 This library imposes no obstacles on how the certificate object is obtained.
