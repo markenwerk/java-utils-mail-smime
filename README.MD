@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/markenwerk/java-utils-mail-smime.png?branch=master)](https://travis-ci.org/markenwerk/java-utils-mail-smime)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.markenwerk/utils-mail-smime/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.markenwerk/utils-mail-smime)
+[![Dependency Status](https://gemnasium.com/net.markenwerk/utils-mail-smime.svg)](https://gemnasium.com/jirutka/net.markenwerk/utils-mail-smime)
 
 This is a simple to use library to use [S/MIME](https://en.wikipedia.org/wiki/S/MIME) features in conjunction with [JavaMail](http://www.oracle.com/technetwork/java/javamail/index.html).
 
