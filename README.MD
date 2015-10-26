@@ -16,17 +16,17 @@ This library allows you to
  - check, whether the signature of a MIME message that is signed according to the S/MIME standard is valid or
  - decrypt a MIME message that is encrypted according to the S/MIME standard.
 
-This library is hosted in the [Maven Central Repositoy](http://search.maven.org/#artifactdetails|net.markenwerk|utils-mail-smime|1.0.1|jar). You can use it with the following coordinates:
+This library is hosted in the [Maven Central Repositoy](http://search.maven.org/#artifactdetails|net.markenwerk|utils-mail-smime|1.0.2|jar). You can use it with the following coordinates:
 
 ```xml
 <dependency>
 	<groupId>net.markenwerk</groupId>
 	<artifactId>utils-mail-smime</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 </dependency>
 ```
 
-Consult the [usage description](#usage) and [Javadoc](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.1/index.html) for further information.
+Consult the [usage description](#usage) and [Javadoc](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.2/index.html) for further information.
 
 ## Origin and state
 
@@ -202,8 +202,8 @@ If the messages S/MIME state is `NEITHER` it just means that the message is neit
 [MimeMessage]: http://javamail.java.net/nonav/docs/api/index.html?javax/mail/internet/MimeMessage.html
 [PrivateKey]: http://docs.oracle.com/javase/7/docs/api/index.html?java/security/PrivateKey.html
 [Session]: http://javamail.java.net/nonav/docs/api/index.html?javax/mail/Session.html
-[SmimeKey]: http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.1/index.html?net/markenwerk/utils/mail/smime/SmimeKey.html
-[SmimeKeyStore]: http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.1/index.html?net/markenwerk/utils/mail/smime/SmimeKeyStore.html
-[SmimeState]: http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.1/index.html?net/markenwerk/utils/mail/smime/SmimeState.html
-[SmimeUtil]: http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.1/index.html?net/markenwerk/utils/mail/smime/SmimeUtil.html
+[SmimeKey]: http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.2/index.html?net/markenwerk/utils/mail/smime/SmimeKey.html
+[SmimeKeyStore]: http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.2/index.html?net/markenwerk/utils/mail/smime/SmimeKeyStore.html
+[SmimeState]: http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.2/index.html?net/markenwerk/utils/mail/smime/SmimeState.html
+[SmimeUtil]: http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.2/index.html?net/markenwerk/utils/mail/smime/SmimeUtil.html
 [X509Certificate]: http://docs.oracle.com/javase/7/docs/api/index.html?java/security/cert/X509Certificate.html
