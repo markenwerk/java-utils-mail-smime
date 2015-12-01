@@ -196,14 +196,17 @@ MimeBodyPart signedContent = SmimeUtil.getSignedContent(mimePart);
 
 If the messages S/MIME state is `NEITHER` it just means that the message is neither S/MIME encrypted nor S/MIME signed. It may be encrypted or signed by some other means.
 
+[SmimeKey]: http://static.javadoc.io/net.markenwerk/utils-mail-smime/1.0.2/index.html?net/markenwerk/utils/mail/smime/SmimeKey.html
+[SmimeKeyStore]: http://static.javadoc.io/net.markenwerk/utils-mail-smime/1.0.2/index.html?net/markenwerk/utils/mail/smime/SmimeKeyStore.html
+[SmimeState]: http://static.javadoc.io/net.markenwerk/utils-mail-smime/1.0.2/index.html?net/markenwerk/utils/mail/smime/SmimeState.html
+[SmimeUtil]: http://static.javadoc.io/net.markenwerk/utils-mail-smime/1.0.2/index.html?net/markenwerk/utils/mail/smime/SmimeUtil.html
+
 [BouncyCastleProvider]: http://www.bouncycastle.org/docs/docs1.5on/index.html?org/bouncycastle/jce/provider/BouncyCastleProvider.html
+
+[MimeMessage]: http://javamail.java.net/nonav/docs/api/index.html?javax/mail/internet/MimeMessage.html
+[Session]: http://javamail.java.net/nonav/docs/api/index.html?javax/mail/Session.html
+
 [FileInputStream]: http://docs.oracle.com/javase/7/docs/api/index.html?java/io/FileInputStream.html
 [InputStream]: http://docs.oracle.com/javase/7/docs/api/index.html?java/io/InputStream.html
-[MimeMessage]: http://javamail.java.net/nonav/docs/api/index.html?javax/mail/internet/MimeMessage.html
 [PrivateKey]: http://docs.oracle.com/javase/7/docs/api/index.html?java/security/PrivateKey.html
-[Session]: http://javamail.java.net/nonav/docs/api/index.html?javax/mail/Session.html
-[SmimeKey]: http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.2/index.html?net/markenwerk/utils/mail/smime/SmimeKey.html
-[SmimeKeyStore]: http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.2/index.html?net/markenwerk/utils/mail/smime/SmimeKeyStore.html
-[SmimeState]: http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.2/index.html?net/markenwerk/utils/mail/smime/SmimeState.html
-[SmimeUtil]: http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.2/index.html?net/markenwerk/utils/mail/smime/SmimeUtil.html
 [X509Certificate]: http://docs.oracle.com/javase/7/docs/api/index.html?java/security/cert/X509Certificate.html
