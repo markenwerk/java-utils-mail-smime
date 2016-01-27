@@ -16,17 +16,17 @@ This library allows you to
  - check, whether the signature of a MIME message that is signed according to the S/MIME standard is valid or
  - decrypt a MIME message that is encrypted according to the S/MIME standard.
 
-This library is hosted in the [Maven Central Repositoy](http://search.maven.org/#artifactdetails|net.markenwerk|utils-mail-smime|1.0.2|jar). You can use it with the following coordinates:
+This library is hosted in the [Maven Central Repositoy](http://search.maven.org/#artifactdetails|net.markenwerk|utils-mail-smime|1.0.4|jar). You can use it with the following coordinates:
 
 ```xml
 <dependency>
 	<groupId>net.markenwerk</groupId>
 	<artifactId>utils-mail-smime</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.4</version>
 </dependency>
 ```
 
-Consult the [usage description](#usage) and [Javadoc](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.2/index.html) for further information.
+Consult the [usage description](#usage) and [Javadoc](http://markenwerk.github.io/java-utils-mail-smime/javadoc/1.0.4/index.html) for further information.
 
 ## Origin and state
 
@@ -196,10 +196,10 @@ MimeBodyPart signedContent = SmimeUtil.getSignedContent(mimePart);
 
 If the messages S/MIME state is `NEITHER` it just means that the message is neither S/MIME encrypted nor S/MIME signed. It may be encrypted or signed by some other means.
 
-[SmimeKey]: http://static.javadoc.io/net.markenwerk/utils-mail-smime/1.0.2/index.html?net/markenwerk/utils/mail/smime/SmimeKey.html
-[SmimeKeyStore]: http://static.javadoc.io/net.markenwerk/utils-mail-smime/1.0.2/index.html?net/markenwerk/utils/mail/smime/SmimeKeyStore.html
-[SmimeState]: http://static.javadoc.io/net.markenwerk/utils-mail-smime/1.0.2/index.html?net/markenwerk/utils/mail/smime/SmimeState.html
-[SmimeUtil]: http://static.javadoc.io/net.markenwerk/utils-mail-smime/1.0.2/index.html?net/markenwerk/utils/mail/smime/SmimeUtil.html
+[SmimeKey]: http://static.javadoc.io/net.markenwerk/utils-mail-smime/1.0.4/index.html?net/markenwerk/utils/mail/smime/SmimeKey.html
+[SmimeKeyStore]: http://static.javadoc.io/net.markenwerk/utils-mail-smime/1.0.4/index.html?net/markenwerk/utils/mail/smime/SmimeKeyStore.html
+[SmimeState]: http://static.javadoc.io/net.markenwerk/utils-mail-smime/1.0.4/index.html?net/markenwerk/utils/mail/smime/SmimeState.html
+[SmimeUtil]: http://static.javadoc.io/net.markenwerk/utils-mail-smime/1.0.4/index.html?net/markenwerk/utils/mail/smime/SmimeUtil.html
 
 [BouncyCastleProvider]: http://www.bouncycastle.org/docs/docs1.5on/index.html?org/bouncycastle/jce/provider/BouncyCastleProvider.html
 
