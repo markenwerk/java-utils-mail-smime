@@ -9,7 +9,7 @@
 
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>A S/MIME library for JavaMail</description>
-	<url>https://github.com/markenwerk/java-utils-mail-smime</url>
+	<url>${urls.github}</url>
 	<inceptionYear>2015</inceptionYear>
 
 	<licenses>
@@ -223,7 +223,7 @@
 							<checkinComment>Javadoc for ${project.artifactId}:${project.version}</checkinComment>
 							<content>${project.build.directory}/apidocs</content>
 							<siteOutputEncoding>UTF-8</siteOutputEncoding>
-							<skipDeletedFiles>true</skipDeletedFiles>
+							<skipDeletedFiles>false</skipDeletedFiles>
 							<pubScmUrl>${project.scm.developerConnection}</pubScmUrl>
 							<scmBranch>gh-pages</scmBranch>
 						</configuration>
