@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/markenwerk/java-utils-mail-smime.svg?branch=master)](https://travis-ci.org/markenwerk/java-utils-mail-smime)
 [![Dependency Status](https://www.versioneye.com/user/projects/562bcd9836d0ab002100128a/badge.svg)](https://www.versioneye.com/user/projects/562bcd9836d0ab002100128a)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.markenwerk/utils-mail-smime/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.markenwerk/utils-mail-smime)
+[![Java SE 6](https://img.shields.io/badge/java-SE_6-brightgreen.svg)](http://docs.oracle.com/javase/6/docs/api/)
+[![LGPL 3.0 License](https://img.shields.io/badge/license-LGPL_3.0-brightgreen.svg)](https://github.com/markenwerk/java-utils-mail-smime/blob/master/LICENSE)
 
 This is a simple to use library to use [S/MIME](https://en.wikipedia.org/wiki/S/MIME) features in conjunction with [JavaMail](http://www.oracle.com/technetwork/java/javamail/index.html).
 
@@ -16,7 +18,7 @@ This library allows you to
  - check, whether the signature of a MIME message that is signed according to the S/MIME standard is valid or
  - decrypt a MIME message that is encrypted according to the S/MIME standard.
 
-This library is hosted in the [Maven Central Repositoy](http://search.maven.org/#artifactdetails|net.markenwerk|utils-mail-smime|1.0.4|jar). You can use it with the following coordinates:
+This library is hosted in the [Maven Central Repository](https://maven-badges.herokuapp.com/maven-central/net.markenwerk/utils-mail-smime). You can use it with the following coordinates:
 
 ```xml
 <dependency>
