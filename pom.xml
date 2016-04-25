@@ -145,13 +145,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.10.3</version>
-				<configuration>
-					<notimestamp>true</notimestamp>
-					<links>
-						<link>https://www.bouncycastle.org/docs/docs1.5on/</link>
-						<link>https://javamail.java.net/nonav/docs/api/</link>
-					</links>
-				</configuration>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -214,6 +207,32 @@
 			<id>publish</id>
 			<build>
 				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.10.3</version>
+						<configuration>
+							<notimestamp>true</notimestamp>
+							<includeDependencySources>true</includeDependencySources>
+							<includeTransitiveDependencySources>true</includeTransitiveDependencySources>
+							<dependencySourceIncludes>
+								<dependencySourceInclude>net.markenwerk:*</dependencySourceInclude>
+							</dependencySourceIncludes>
+							<links>
+								<link>https://www.bouncycastle.org/docs/docs1.5on/</link>
+								<link>https://javamail.java.net/nonav/docs/api/</link>
+							</links>
+						</configuration>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-scm-publish-plugin</artifactId>
