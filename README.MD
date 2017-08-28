@@ -94,7 +94,7 @@ Security.addProvider(new BouncyCastleProvider());
 
 Depending on what you want to do with this library you must import the private key and certificate chain as a [`SmimeKey`][SmimeKey] or import the public certificate as a [`X509certificate`][X509Certificate]. 
 
-#### ... to sing or decrypt a message
+#### ... to sign or decrypt a message
 
 While [`SmimeKey`][SmimeKey] has a public constructor it is recommended to use a [`SmimeKeyStore`][SmimeKeyStore], which is a thin wrapper around a PKCS12 keystore and can be created and used like this:
 
