@@ -53,6 +53,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimePart;
 
+import com.sun.mail.smtp.SMTPMessage;
 import org.bouncycastle.asn1.ASN1EncodableVector;
 import org.bouncycastle.asn1.cms.AttributeTable;
 import org.bouncycastle.asn1.cms.IssuerAndSerialNumber;
@@ -393,23 +394,28 @@ public final class SmimeUtil {
 		}
 		return new JcaCertStore(certificateList);
 	}
-
+	
 	/**
 	 * Signs a MIME message and yields a new S/MIME signed MIME message.
-	 * 
+	 *
 	 * @param session
 	 *            The {@link Session} that is used in conjunction with the
 	 *            original {@link MimeMessage}.
 	 * @param mimeMessage
-	 *            The original {@link MimeMessage} to be signed.
+	 *            The original {@link MimeMessage} or {@link SMTPMessage} to be signed.
 	 * @param smimeKey
 	 *            The {@link SmimeKey} used to obtain the {@link PrivateKey} to
 	 *            sign the original message with.
-	 * @return The new S/MIME signed {@link MimeMessage}.
+	 * @return The new S/MIME signed {@link MimeMessage} or {@link SMTPMessage}.
 	 */
-	public static MimeMessage sign(Session session, MimeMessage mimeMessage, SmimeKey smimeKey) {
+	public static <T extends MimeMessage> T sign(Session session, T mimeMessage, SmimeKey smimeKey) {
+		return (mimeMessage instanceof SMTPMessage)
+				? sign(mimeMessage, (T) new SMTPMessage(session), smimeKey)
+				: sign(mimeMessage, (T) new MimeMessage(session), smimeKey);
+	}
+	
+	private static <T extends MimeMessage> T sign(T mimeMessage, T signedMessage, SmimeKey smimeKey) {
 		try {
-			MimeMessage signedMessage = new MimeMessage(session);
 			copyHeaderLines(mimeMessage, signedMessage);
 			copyContent(sign(extractMimeBodyPart(mimeMessage), smimeKey), signedMessage);
 			return signedMessage;
