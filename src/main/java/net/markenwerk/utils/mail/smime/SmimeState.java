@@ -43,12 +43,18 @@ public enum SmimeState {
 	 * encrypted.
 	 */
 	ENCRYPTED,
-
+	
 	/**
 	 * Indicates that the {@link MimePart} or {@link MimeMultipart} is S/MIME
 	 * signed.
 	 */
 	SIGNED,
+	
+	/**
+	 * Indicates that the {@link MimePart} or {@link MimeMultipart} is S/MIME
+	 * signed using the older envelope style.
+	 */
+	SIGNED_ENVELOPED,
 
 	/**
 	 * Indicates that the {@link MimePart} or {@link MimeMultipart} is neither

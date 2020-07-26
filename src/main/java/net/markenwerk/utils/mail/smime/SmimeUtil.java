@@ -576,17 +576,15 @@ public final class SmimeUtil {
 			throw handledException(e);
 		}
 	}
-
+	
 	private static SmimeState getStatus(ContentType contentType) {
-		try {
-			if (isSmimeSignatureContentType(contentType)) {
-				return SmimeState.SIGNED;
-			} else if (isSmimeEncryptionContenttype(contentType)) {
-				return SmimeState.ENCRYPTED;
-			} else {
-				return SmimeState.NEITHER;
-			}
-		} catch (Exception e) {
+		if (isSmimeSignatureContentType(contentType)) {
+			return SmimeState.SIGNED;
+		} else if (isSignatureSmimeType(contentType)) {
+			return SmimeState.SIGNED_ENVELOPED;
+		} else if (isSmimeEncryptionContenttype(contentType)) {
+			return SmimeState.ENCRYPTED;
+		} else {
 			return SmimeState.NEITHER;
 		}
 	}
@@ -601,6 +599,12 @@ public final class SmimeUtil {
 		String baseContentType = contentType.getBaseType();
 		return baseContentType.equalsIgnoreCase("multipart/signed")
 				&& isSmimeSignatureProtocoll(contentType.getParameter("protocol"));
+	}
+	
+	private static boolean isSignatureSmimeType(ContentType contentType) {
+		String baseContentType = contentType.getBaseType();
+		return baseContentType.equalsIgnoreCase("application/x-pkcs7-mime")
+				&& "signed-data".equals(contentType.getParameter("smime-type"));
 	}
 
 	private static boolean isSmimeSignatureProtocoll(String protocol) {
