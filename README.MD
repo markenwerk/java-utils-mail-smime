@@ -1,10 +1,8 @@
-# A S/MIME library for JavaMail
+__Be aware:__ This project is no longer maintained. Have a look at [Simple Java Mail](https://github.com/simple-java-mail/java-utils-mail-smime) if you're interested in a successor project.
 
-[![Build Status](https://travis-ci.org/markenwerk/java-utils-mail-smime.svg?branch=master)](https://travis-ci.org/markenwerk/java-utils-mail-smime)
-[![Dependency Status](https://www.versioneye.com/user/projects/562bcd9836d0ab002100128a/badge.svg)](https://www.versioneye.com/user/projects/562bcd9836d0ab002100128a)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.markenwerk/utils-mail-smime/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.markenwerk/utils-mail-smime)
-[![Java SE 6](https://img.shields.io/badge/java-SE_6-brightgreen.svg)](http://docs.oracle.com/javase/6/docs/api/)
-[![LGPL 3.0 License](https://img.shields.io/badge/license-LGPL_3.0-brightgreen.svg)](https://github.com/markenwerk/java-utils-mail-smime/blob/master/LICENSE)
+----
+
+# A S/MIME library for JavaMail
 
 This is a simple to use library to use [S/MIME](https://en.wikipedia.org/wiki/S/MIME) features in conjunction with [JavaMail](http://www.oracle.com/technetwork/java/javamail/index.html).
 
