@@ -60,7 +60,10 @@ import org.bouncycastle.asn1.smime.SMIMECapabilitiesAttribute;
 import org.bouncycastle.asn1.smime.SMIMECapability;
 import org.bouncycastle.asn1.smime.SMIMECapabilityVector;
 import org.bouncycastle.asn1.smime.SMIMEEncryptionKeyPreferenceAttribute;
+import org.bouncycastle.asn1.x500.RDN;
 import org.bouncycastle.asn1.x500.X500Name;
+import org.bouncycastle.asn1.x500.style.BCStyle;
+import org.bouncycastle.asn1.x500.style.IETFUtils;
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.jcajce.JcaCertStore;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
@@ -487,6 +490,61 @@ public final class SmimeUtil {
 			}
 			return returnValue;
 
+		} catch (Exception e) {
+			throw handledException(e);
+		}
+	}
+	
+	/**
+	 * @param mimeMultipart
+	 *            The {@link MimeMultipart} to be checked.
+	 * @return The subject / address to which the certificate was issued to. Email clients may use this to show
+	 * 			{@code "Signed by: <subject / address>"}
+	 */
+	public static String getSignedByAddress(MimeMultipart mimeMultipart) {
+		try {
+			return getSignedByAddress(new SMIMESigned(mimeMultipart));
+		} catch (Exception e) {
+			throw handledException(e);
+		}
+	}
+	
+	/**
+	 * @param mimePart
+	 *            The {@link MimePart} to be checked.
+	 * @return The subject / address to which the certificate was issued to. Email clients may use this to show
+	 * 			{@code "Signed by: <subject / address>"}
+	 */
+	public static String getSignedByAddress(MimePart mimePart) {
+		try {
+			if (mimePart.isMimeType("multipart/signed")) {
+				return getSignedByAddress(new SMIMESigned((MimeMultipart) mimePart.getContent()));
+			} else if (mimePart.isMimeType("application/pkcs7-mime") || mimePart.isMimeType("application/x-pkcs7-mime")) {
+				return getSignedByAddress(new SMIMESigned(mimePart));
+			} else {
+				throw new SmimeException("Message not signed");
+			}
+		} catch (Exception e) {
+			throw handledException(e);
+		}
+	}
+	
+	/**
+	 * Returns the subject / address to which the certificate was issued to. Email clients may use this to show
+	 * {@code "Signed by: <subject / address>"}
+	 */
+	private static String getSignedByAddress(SMIMESigned smimeSigned) {
+		try {
+			@SuppressWarnings("rawtypes")
+			Store certificates = smimeSigned.getCertificates();
+			
+			SignerInformation signerInformation = smimeSigned.getSignerInfos().getSigners().iterator().next();
+			X509Certificate certificate = getCertificate(certificates, signerInformation.getSID());
+			SignerInformationVerifier verifier = getVerifier(certificate);
+			X500Name x500name = verifier.getAssociatedCertificate().getSubject();
+			RDN cn = x500name.getRDNs(BCStyle.CN)[0];
+			return IETFUtils.valueToString(cn.getFirst().getValue());
+			
 		} catch (Exception e) {
 			throw handledException(e);
 		}
