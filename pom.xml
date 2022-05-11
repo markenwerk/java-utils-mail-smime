@@ -2,9 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.markenwerk</groupId>
+	<!--<groupId>net.markenwerk</groupId>-->
+	<groupId>com.vnomicscorp</groupId>
 	<artifactId>utils-mail-smime</artifactId>
-	<version>1.0.8</version>
+	<!-- 1.0.8 is the original version of this branched project.  The next number is the vnomics specific build number-->
+	<version>1.0.8.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>${project.groupId}:${project.artifactId}</name>

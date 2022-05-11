@@ -54,6 +54,7 @@ import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimePart;
 
 import org.bouncycastle.asn1.ASN1EncodableVector;
+import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.cms.AttributeTable;
 import org.bouncycastle.asn1.cms.IssuerAndSerialNumber;
 import org.bouncycastle.asn1.smime.SMIMECapabilitiesAttribute;
@@ -133,12 +134,34 @@ public final class SmimeUtil {
 	 * @return The new S/MIME encrypted {@link MimeMessage}.
 	 */
 	public static MimeMessage encrypt(Session session, MimeMessage mimeMessage, X509Certificate certificate) {
+		return encrypt(session, mimeMessage, certificate, CMSAlgorithm.DES_EDE3_CBC);
+	}
+
+	/**
+	 * Encrypts a MIME message and yields a new S/MIME encrypted MIME message.
+	 *
+	 * @param session
+	 *            The {@link Session} that is used in conjunction with the
+	 *            original {@link MimeMessage}.
+	 * @param mimeMessage
+	 *            The original {@link MimeMessage} to be encrypted.
+	 * @param certificate
+	 *            The {@link X509Certificate} used to obtain the
+	 *            {@link PublicKey} to encrypt the original message with.
+	 * @param cmsAlgorithm
+	 *            The {@link ASN1ObjectIdentifier} cooresponding to the CMS Algorithm
+	 *            used to encrypt the email. This is typically a constant found
+	 *            in {@link CMSAlgorithm}
+	 *
+	 * @return The new S/MIME encrypted {@link MimeMessage}.
+	 */
+	public static MimeMessage encrypt(Session session, MimeMessage mimeMessage, X509Certificate certificate, ASN1ObjectIdentifier cmsAlgorithm) {
 		try {
 			MimeMessage encryptedMimeMessage = new MimeMessage(session);
 			copyHeaders(mimeMessage, encryptedMimeMessage);
 
 			SMIMEEnvelopedGenerator generator = prepareGenerator(certificate);
-			OutputEncryptor encryptor = prepareEncryptor();
+			OutputEncryptor encryptor = prepareEncryptor(cmsAlgorithm);
 
 			MimeBodyPart encryptedMimeBodyPart = generator.generate(mimeMessage, encryptor);
 			copyContent(encryptedMimeBodyPart, encryptedMimeMessage);
@@ -164,7 +187,7 @@ public final class SmimeUtil {
 	public static MimeBodyPart encrypt(MimeBodyPart mimeBodyPart, X509Certificate certificate) {
 		try {
 			SMIMEEnvelopedGenerator generator = prepareGenerator(certificate);
-			OutputEncryptor encryptor = prepareEncryptor();
+			OutputEncryptor encryptor = prepareEncryptor(CMSAlgorithm.DES_EDE3_CBC);
 
 			MimeBodyPart encryptedMimeBodyPart = generator.generate(mimeBodyPart, encryptor);
 			return encryptedMimeBodyPart;
@@ -202,8 +225,8 @@ public final class SmimeUtil {
 		return generator;
 	}
 
-	private static OutputEncryptor prepareEncryptor() throws CMSException {
-		return new JceCMSContentEncryptorBuilder(CMSAlgorithm.DES_EDE3_CBC).setProvider(
+	private static OutputEncryptor prepareEncryptor(ASN1ObjectIdentifier cmsAlgorithm) throws CMSException {
+		return new JceCMSContentEncryptorBuilder(cmsAlgorithm).setProvider(
 				BouncyCastleProvider.PROVIDER_NAME).build();
 	}
 
